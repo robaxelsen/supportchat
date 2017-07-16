@@ -16,7 +16,7 @@ class App extends Component {
   }
   setChannel(activeChannel) {
     this.setState({activeChannel});
-    // TODO: Get Channels Messages
+    // TODO: Get Channels messages
   }
   render() {
     return (

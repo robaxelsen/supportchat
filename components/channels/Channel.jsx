@@ -1,18 +1,20 @@
 import React, {Component} from 'react';
 
-class Channel extends Component {
-  onClick(e) {
+class Channel extends Component{
+  onClick(e){
     e.preventDefault();
     const {setChannel, channel} = this.props;
     setChannel(channel);
   }
-  render(){
+  render() {
     const {channel} = this.props;
-    <li>
-      <a onClick={this.onClick.bind(this)}>
-        {channel.name}
-      </a>
-    </li>
+    return (
+      <li>
+        <a onClick={this.onClick.bind(this)}>
+          {channel.name}
+        </a>
+      </li>
+    )
   }
 }
 
