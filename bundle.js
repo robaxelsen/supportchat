@@ -19770,6 +19770,8 @@
 	  value: true
 	});
 
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _react = __webpack_require__(1);
@@ -19797,7 +19799,8 @@
 	    var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 
 	    _this.state = {
-	      channels: []
+	      channels: [],
+	      activeChannel: {}
 	    };
 	    return _this;
 	  }
@@ -19820,11 +19823,18 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      return _react2.default.createElement(_ChannelSection2.default, {
-	        channels: this.state.channels,
-	        addChannel: this.addChannel.bind(this),
-	        setChannel: this.setChannel.bind(this)
-	      });
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'app' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'nav' },
+	          _react2.default.createElement(_ChannelSection2.default, _extends({}, this.state, {
+	            addChannel: this.addChannel.bind(this),
+	            setChannel: this.setChannel.bind(this)
+	          }))
+	        )
+	      );
 	    }
 	  }]);
 
@@ -19879,9 +19889,22 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
-	        null,
-	        _react2.default.createElement(_ChannelList2.default, this.props),
-	        _react2.default.createElement(_ChannelForm2.default, this.props)
+	        { className: 'support panel panel-primary' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'panel-heading' },
+	          _react2.default.createElement(
+	            'strong',
+	            null,
+	            'Channels'
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'panel-body channels' },
+	          _react2.default.createElement(_ChannelList2.default, this.props),
+	          _react2.default.createElement(_ChannelForm2.default, this.props)
+	        )
 	      );
 	    }
 	  }]);
@@ -19892,7 +19915,8 @@
 	ChannelSection.propTypes = {
 	  channels: _react2.default.PropTypes.array.isRequired,
 	  setChannel: _react2.default.PropTypes.func.isRequired,
-	  addChannel: _react2.default.PropTypes.func.isRequired
+	  addChannel: _react2.default.PropTypes.func.isRequired,
+	  activeChannel: _react2.default.PropTypes.object.isRequired
 	};
 
 	exports.default = ChannelSection;
@@ -19978,6 +20002,8 @@
 	  value: true
 	});
 
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _react = __webpack_require__(1);
@@ -20014,11 +20040,10 @@
 	        'ul',
 	        null,
 	        this.props.channels.map(function (chan) {
-	          return _react2.default.createElement(_Channel2.default, {
+	          return _react2.default.createElement(_Channel2.default, _extends({
 	            channel: chan,
-	            key: chan.id,
-	            setChannel: _this2.props.setChannel
-	          });
+	            key: chan.id
+	          }, _this2.props));
 	        })
 	      );
 	    }
@@ -20029,7 +20054,8 @@
 
 	ChannelList.propTypes = {
 	  channels: _react2.default.PropTypes.array.isRequired,
-	  setChannel: _react2.default.PropTypes.func.isRequired
+	  setChannel: _react2.default.PropTypes.func.isRequired,
+	  activeChannel: _react2.default.PropTypes.object.isRequired
 	};
 
 	exports.default = ChannelList;
@@ -20080,8 +20106,11 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var channel = this.props.channel;
+	      var _props2 = this.props,
+	          channel = _props2.channel,
+	          activeChannel = _props2.activeChannel;
 
+	      var active = channel === activeChannel ? 'active' : '';
 	      return _react2.default.createElement(
 	        'li',
 	        null,
@@ -20099,7 +20128,8 @@
 
 	Channel.propTypes = {
 	  channel: _react2.default.PropTypes.object.isRequired,
-	  setChannel: _react2.default.PropTypes.func.isRequired
+	  setChannel: _react2.default.PropTypes.func.isRequired,
+	  activeChannel: _react2.default.PropTypes.object.isRequired
 	};
 
 	exports.default = Channel;
