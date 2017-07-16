@@ -1,4 +1,4 @@
-import React, {Component} from '';
+import React, {Component} from 'react';
 import ChannelForm from './ChannelForm.jsx';
 import ChannelList from './ChannelList.jsx';
 
