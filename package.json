@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/robeerob/supportchat/issues"
   },
-  "homepage": "https://github.com/robeerob/supportchat#readme"
+  "homepage": "https://github.com/robeerob/supportchat#readme",
+  "devDependencies": {
+    "babel-loader": "^5.4.2",
+    "webpack": "^3.3.0"
+  }
 }
