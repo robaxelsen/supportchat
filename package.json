@@ -1,0 +1,19 @@
+{
+  "name": "supportchat",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/robeerob/supportchat.git"
+  },
+  "author": "Robert Axelsen <rob@rob.ee>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/robeerob/supportchat/issues"
+  },
+  "homepage": "https://github.com/robeerob/supportchat#readme"
+}
