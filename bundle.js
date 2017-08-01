@@ -19829,17 +19829,33 @@
 	  }, {
 	    key: 'addUser',
 	    value: function addUser(name) {
-	      var Users = this.state.Users;
+	      var users = this.state.users;
 
 	      users.push({ id: users.length, name: name });
-	      this.setState({ Users: Users });
+	      this.setState({ users: users });
 	      // TODO: Send to server
 	    }
 	  }, {
-	    key: 'setUser',
-	    value: function setUser(activeUser) {
-	      this.setState({ activeUser: activeUser });
-	      // TODO
+	    key: 'setUserName',
+	    value: function setUserName(name) {
+	      var users = this.state.users;
+
+	      users.push({ id: users.length, name: name });
+	      this.setState({ users: users });
+	      // TODO: Send to server
+	    }
+	  }, {
+	    key: 'addMessage',
+	    value: function addMessage(body) {
+	      var _state = this.state,
+	          messages = _state.messages,
+	          users = _state.users;
+
+	      var createdAt = new Date();
+	      var author = users.length > 0 ? users[0].name : 'anonymous';
+	      messages.push({ id: messages.length, body: body, createdAt: createdAt, author: author });
+	      this.setState({ messages: messages });
+	      // TODO: Send to server
 	    }
 	  }, {
 	    key: 'render',
@@ -19853,16 +19869,14 @@
 	          _react2.default.createElement(_ChannelSection2.default, _extends({}, this.state, {
 	            addChannel: this.addChannel.bind(this),
 	            setChannel: this.setChannel.bind(this)
+	          })),
+	          _react2.default.createElement(_UserSection2.default, _extends({}, this.state, {
+	            setUserName: this.setUserName.bind(this)
 	          }))
 	        ),
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'nav' },
-	          _react2.default.createElement(_UserSection2.default, _extends({}, this.state, {
-	            addUser: this.addUser.bind(this),
-	            setUser: this.setUser.bind(this)
-	          }))
-	        )
+	        _react2.default.createElement(MessageSection, _extends({}, this.state, {
+	          addMessage: this.addMessage.bind(this)
+	        }))
 	      );
 	    }
 	  }]);
@@ -20221,7 +20235,7 @@
 	        ),
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'panel-body Users' },
+	          { className: 'panel-body users' },
 	          _react2.default.createElement(_UserList2.default, this.props),
 	          _react2.default.createElement(_UserForm2.default, this.props)
 	        )
@@ -20234,9 +20248,7 @@
 
 	UserSection.propTypes = {
 	  users: _react2.default.PropTypes.array.isRequired,
-	  setUser: _react2.default.PropTypes.func.isRequired,
-	  addUser: _react2.default.PropTypes.func.isRequired,
-	  activeUser: _react2.default.PropTypes.object.isRequired
+	  setUserName: _react2.default.PropTypes.func.isRequired
 	};
 
 	exports.default = UserSection;
@@ -20278,9 +20290,9 @@
 	    key: 'onSubmit',
 	    value: function onSubmit(e) {
 	      e.preventDefault();
-	      var node = this.refs.User;
-	      var UserName = node.value;
-	      this.props.addUser(UserName);
+	      var node = this.refs.userName;
+	      var userName = node.value;
+	      this.props.setUserName(userName);
 	      node.value = '';
 	    }
 	  }, {
@@ -20293,10 +20305,10 @@
 	          'div',
 	          { className: 'form-group' },
 	          _react2.default.createElement('input', {
-	            className: 'form-control',
-	            placeholder: 'Add User',
+	            ref: 'userName',
 	            type: 'text',
-	            ref: 'User'
+	            className: 'form-control',
+	            placeholder: 'Set Your Name...'
 	          })
 	        )
 	      );
@@ -20307,7 +20319,7 @@
 	}(_react.Component);
 
 	UserForm.propTypes = {
-	  addUser: _react2.default.PropTypes.func.isRequired
+	  setUserName: _react2.default.PropTypes.func.isRequired
 	};
 
 	exports.default = UserForm;
@@ -20321,8 +20333,6 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -20354,16 +20364,14 @@
 	  _createClass(UserList, [{
 	    key: 'render',
 	    value: function render() {
-	      var _this2 = this;
-
 	      return _react2.default.createElement(
 	        'ul',
 	        null,
-	        this.props.Users.map(function (chan) {
-	          return _react2.default.createElement(_User2.default, _extends({
-	            User: chan,
-	            key: chan.id
-	          }, _this2.props));
+	        this.props.users.map(function (user) {
+	          return _react2.default.createElement(_User2.default, {
+	            key: user.id,
+	            user: user
+	          });
 	        })
 	      );
 	    }
@@ -20373,9 +20381,7 @@
 	}(_react.Component);
 
 	UserList.propTypes = {
-	  Users: _react2.default.PropTypes.array.isRequired,
-	  setUser: _react2.default.PropTypes.func.isRequired,
-	  activeUser: _react2.default.PropTypes.object.isRequired
+	  users: _react2.default.PropTypes.array.isRequired
 	};
 
 	exports.default = UserList;
@@ -20414,31 +20420,12 @@
 	  }
 
 	  _createClass(User, [{
-	    key: 'onClick',
-	    value: function onClick(e) {
-	      e.preventDefault();
-	      var _props = this.props,
-	          setUser = _props.setUser,
-	          User = _props.User;
-
-	      setUser(User);
-	    }
-	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _props2 = this.props,
-	          User = _props2.User,
-	          activeUser = _props2.activeUser;
-
-	      var active = User === activeUser ? 'active' : '';
 	      return _react2.default.createElement(
 	        'li',
-	        { className: active },
-	        _react2.default.createElement(
-	          'a',
-	          { onClick: this.onClick.bind(this) },
-	          User.name
-	        )
+	        null,
+	        this.props.user.name
 	      );
 	    }
 	  }]);
@@ -20447,9 +20434,7 @@
 	}(_react.Component);
 
 	User.propTypes = {
-	  User: _react2.default.PropTypes.object.isRequired,
-	  setUser: _react2.default.PropTypes.func.isRequired,
-	  activeUser: _react2.default.PropTypes.object.isRequired
+	  user: _react2.default.PropTypes.object.isRequired
 	};
 
 	exports.default = User;

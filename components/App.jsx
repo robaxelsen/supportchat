@@ -34,6 +34,14 @@ class App extends Component {
     this.setState({users});
     // TODO: Send to server
   }
+  addMessage(body) {
+    let {messages, users} = this.state;
+    let createdAt = new Date;
+    let author = users.length > 0 ? users[0].name : 'anonymous';
+    messages.push({id: messages.length, body, createdAt, author});
+    this.setState({messages});
+    // TODO: Send to server
+  }
   render() {
     return (
       <div className='app'>
@@ -48,8 +56,11 @@ class App extends Component {
             setUserName={this.setUserName.bind(this)}
           />
         </div>
+      <MessageSection
+        {...this.state}
+        addMessage={this.addMessage.bind(this)}
+      />
       </div>
-
     )
   }
 }

@@ -17,8 +17,8 @@ class Message extends Component{
   }
 }
 
-User.propTypes = {
-  user: React.PropTypes.object.isRequired
+Message.propTypes = {
+  message: React.PropTypes.object.isRequired
 }
 
-export default User
+export default Message
