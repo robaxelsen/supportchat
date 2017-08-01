@@ -28,9 +28,11 @@ class App extends Component {
     this.setState({users});
     // TODO: Send to server
   }
-  setUser(activeUser) {
-    this.setState({activeUser});
-    // TODO
+  setUserName(name) {
+    let {users} = this.state;
+    users.push({id: users.length, name});
+    this.setState({users});
+    // TODO: Send to server
   }
   render() {
     return (
@@ -41,12 +43,9 @@ class App extends Component {
             addChannel={this.addChannel.bind(this)}
             setChannel={this.setChannel.bind(this)}
           />
-        </div>
-        <div className='nav'>
           <UserSection
             {...this.state}
-            addUser={this.addUser.bind(this)}
-            setUser={this.setUser.bind(this)}
+            setUserName={this.setUserName.bind(this)}
           />
         </div>
       </div>
