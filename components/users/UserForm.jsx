@@ -16,8 +16,7 @@ class UserForm extends Component{
             ref='userName'
             type='text'
             className='form-control'
-            placeholder='Set Your Name...'
-          />
+            placeholder='Set Your Name...' />
         </div>
       </form>
     )

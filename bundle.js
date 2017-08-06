@@ -19823,7 +19823,8 @@
 	  _createClass(App, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
-	      var socket = this.socket = new _socket2.default();
+	      var ws = new WebSocket('ws://localhost:4000');
+	      var socket = this.socket = new _socket2.default(ws);
 	      socket.on('connect', this.onConnect.bind(this));
 	      socket.on('disconnect', this.onDisconnect.bind(this));
 	      socket.on('channel add', this.onAddChannel.bind(this));
@@ -20367,8 +20368,7 @@
 	            ref: 'userName',
 	            type: 'text',
 	            className: 'form-control',
-	            placeholder: 'Set Your Name...'
-	          })
+	            placeholder: 'Set Your Name...' })
 	        )
 	      );
 	    }
@@ -21026,7 +21026,7 @@
 	    value: function onSubmit(e) {
 	      e.preventDefault();
 	      var node = this.refs.message;
-	      var userName = node.value;
+	      var message = node.value;
 	      this.props.addMessage(message);
 	      node.value = '';
 	    }
